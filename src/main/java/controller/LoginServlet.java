@@ -1,9 +1,8 @@
 package controller;
 
-import config.Dao.CustomerDao;
+
 import config.Dao.LoginDao;
-import config.Dao.ManagerDao;
-import model.Manager;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;

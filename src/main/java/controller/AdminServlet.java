@@ -1,14 +1,11 @@
 package controller;
 
-import config.Dao.CustomerDao;
+
 import config.Dao.ManagerDao;
 import config.Dao.Roledao;
-import model.Customer;
-import model.Manager;
+import model.Admin;
 import model.Role;
-import service.Customerservice;
 import service.Managerservice;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -83,9 +80,9 @@ public class AdminServlet extends HttpServlet {
         String name = request.getParameter("search");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/admin/showAdmin.jsp");
-        List<Manager> managerList = managerDao.searchByName(name);
+        List<Admin> admins = managerDao.searchByName(name);
 
-        request.setAttribute("manager", managerList);
+        request.setAttribute("manager", admins);
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -110,7 +107,7 @@ public class AdminServlet extends HttpServlet {
         String status = request.getParameter("status");
         Date create_date = Date.valueOf(request.getParameter("create_date"));
         Date modify_date = Date.valueOf(request.getParameter("modify_date"));
-        managerService.add(new Manager(id_role, user_name, passwords,full_name, email, phone, address, img, salary, coefficients_salary, status, create_date, modify_date));
+        managerService.add(new Admin(id_role, user_name, passwords,full_name, email, phone, address, img, salary, coefficients_salary, status, create_date, modify_date));
         try {
             response.sendRedirect("/admin");
         } catch (IOException e) {
@@ -132,8 +129,8 @@ public class AdminServlet extends HttpServlet {
         String status = request.getParameter("status");
         Date create_date = Date.valueOf(request.getParameter("create_date"));
         Date modify_date = Date.valueOf(request.getParameter("modify_date"));
-        Manager manager = new Manager(id, id_role, user_name, passwords, email, phone, address, img, salary, coefficients_salary, status, create_date, modify_date);
-        managerService.edit(id, manager);
+        Admin admin = new Admin(id, id_role, user_name, passwords, email, phone, address, img, salary, coefficients_salary, status, create_date, modify_date);
+        managerService.edit(id, admin);
         try {
             response.sendRedirect("/admin");
         } catch (IOException e) {
@@ -156,8 +153,8 @@ public class AdminServlet extends HttpServlet {
 
     public void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/admin/showAdmin.jsp");
-        List<Manager> managerList = managerDao.showListManager();
-        request.setAttribute("managers", managerList);
+        List<Admin> admins = managerDao.showListManager();
+        request.setAttribute("managers", admins);
         dispatcher.forward(request, response);
     }
 }

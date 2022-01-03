@@ -65,8 +65,8 @@
                         <td><img src="${c.img}"  width="150" height="100" alt=""></td>
                         <td>${c.create_date}</td>
                         <td>${c.modify_date}</td>
-                        <td><a href="/customer?action=edit&id=${p.id}" class="btn btn-success">edit</a></td>
-                        <td><a href="/customer?action=delete&id=${p.id}" class="btn btn-danger">delete</a></td>
+                        <td><a href="/customer?action=edit&id=${c.id}" class="btn btn-success">edit</a></td>
+                        <td><a href="/customer?action=delete&id=${c.id}" class="btn btn-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
