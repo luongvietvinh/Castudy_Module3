@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-sm-6">
             <h2><i>cs</i></h2>
-            <form action="/manager?action=search" method="post">
+            <form action="/admin?action=search" method="post">
                 <input type="search" name="search">
                 <button type="submit">search</button>
             </form>
@@ -43,7 +43,7 @@
             <table class="table table-striped">
                 <thead>
                 <tbody>
-                <th>  <a href="/manager?action=create&id=${p.id}" class="btn btn-success">create</a></th>
+                <th>  <a href="/admin?action=create&id=${p.id}" class="btn btn-success">create</a></th>
                 <c:forEach items="${managers}" var="m" varStatus="loop">
                     <tr>
                         <td>${loop.count}</td>
@@ -60,8 +60,8 @@
                         <td>${m.modify_date}</td>
                         <td>${m.name_role}</td>
 
-                        <td><a href="/manager?action=edit&id=${p.id}" class="btn btn-success">edit</a></td>
-                        <td><a href="/manager?action=delete&id=${p.id}" class="btn btn-danger">delete</a></td>
+                        <td><a href="/admin?action=edit&id=${p.id}" class="btn btn-success">edit</a></td>
+                        <td><a href="/admin?action=delete&id=${p.id}" class="btn btn-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
