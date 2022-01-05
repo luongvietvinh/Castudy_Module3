@@ -1,23 +1,23 @@
 package service;
 
-import config.Dao.ManagerDao;
+import config.Dao.AdminDao;
 import model.Admin;
 
 public class Managerservice {
-    ManagerDao managerDao = new ManagerDao();
+    AdminDao adminDao = new AdminDao();
 
     public  void add (Admin admin){
-        managerDao.createManagerDao(admin);
-        managerDao.showListManager();
+        adminDao.createManagerDao(admin);
+        adminDao.showListManager();
     }
     public  void edit (int id,Admin admin ){
-        managerDao.updateManager(id,admin);
-        managerDao.showListManager();
+        adminDao.updateManager(id,admin);
+        adminDao.showListManager();
     }
 
     public void delete (int id){
-        managerDao.deleteManagerDao(id);
-        managerDao.showListManager();
+        adminDao.deleteManagerDao(id);
+        adminDao.showListManager();
     }
 
 }

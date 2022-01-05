@@ -55,8 +55,28 @@ public class Admin {
         this.name_role = name_role;
     }
 
-    public Admin(int id_role, String user_name, String passwords, String full_name, String email, String phone, String address, String img, Double salary, Double coefficients_salary, String status, Date create_date, Date modify_date) {
+
+    public Admin(String user_name, String passwords) {
+        this.user_name = user_name;
+        this.passwords = passwords;
+    }
+
+    public Admin( String user_name, String passwords, String full_name, String email, String phone, String address, String img, Double salary, Double coefficients_salaryint,int id_role) {
+
+        this.user_name = user_name;
+        this.passwords = passwords;
+        this.full_name = full_name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.img = img;
+        this.salary = salary;
+        this.coefficients_salary = coefficients_salaryint;
         this.id_role = id_role;
+    }
+
+    public Admin(int id, String user_name, String passwords, String full_name, String email, String phone, String address, String img, Double salary, Double coefficients_salary, int id_role) {
+        this.id = id;
         this.user_name = user_name;
         this.passwords = passwords;
         this.full_name = full_name;
@@ -66,26 +86,7 @@ public class Admin {
         this.img = img;
         this.salary = salary;
         this.coefficients_salary = coefficients_salary;
-        this.status = status;
-        this.create_date = create_date;
-        this.modify_date = modify_date;
-
-    }
-
-    public Admin(int id, int id_role, String user_name, String passwords, String email, String phone, String address, String img, Double salary, Double coefficients_salary, String status, Date create_date, Date modify_date) {
-        this.id = id;
-        this.id_role = id_role;
-        this.user_name = user_name;
-        this.passwords = passwords;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.img = img;
-        this.salary = salary;
-        this.coefficients_salary = coefficients_salary;
-        this.status = status;
-        this.create_date = create_date;
-        this.modify_date = modify_date;
+       this.id_role =id_role;
 
     }
 

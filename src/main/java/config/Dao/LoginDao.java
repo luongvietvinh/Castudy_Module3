@@ -1,18 +1,15 @@
 package config.Dao;
 
+import model.Admin;
 import model.Customer;
-import model.Manager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LoginDao {
-ConnectionJDBC connectionJDBC = new ConnectionJDBC();
+    ConnectionJDBC connectionJDBC = new ConnectionJDBC();
 
-//
-//    public Manager login(String user , String pass) {
+
+//    public Admin login(String user, String pass) {
 //        String query = "select * from manager \n" +
 //                "where user_name = ? and passs_word = ?;";
 //
@@ -20,23 +17,22 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
 //            Connection conn = connectionJDBC.getConnection();
 //            PreparedStatement ps = conn.prepareStatement(query);
 //
-//            ps.setString(1,user);
-//            ps.setString(2,pass);
+//            ps.setString(1, user);
+//            ps.setString(2, pass);
 //            ResultSet rs = ps.executeQuery();
-//            while (rs.next()){
-//                return new  Manager (
-//                        rs.getString(1),
-//                        rs.getString(2),
-//                        rs.getString(3),
-//                        rs.getString(4),
-//                        rs.getString(5),
-//                        rs.getString(6),
-//                        rs.getDouble(7),
-//                        rs.getDouble(8),
-//                        rs.getInt(9),
-//                        rs.getString(10),
-//                        rs.getDate(11),
-//                        rs.getDate(12));
+//            while (rs.next()) {
+//                int id  = rs.getInt("id");
+//                String full_name = rs.getString("full_name");
+//                String passwords = rs.getString("passwords");
+//                String email = rs.getString("email");
+//                String phone = rs.getString("phone");
+//                String address = rs.getString("address");
+//                String img = rs.getString("img");
+//                Date create_date = (rs.getDate("create_date"));
+//                Date modify_date =(rs.getDate("modify_date"));
+//                String name_role = rs.getString("name");
+//                customerList.add(new Customer(id, full_name, passwords,email,phone,address,img,create_date,modify_date,name_role));
+//
 //            }
 //        } catch (SQLException e) {
 //            e.printStackTrace();

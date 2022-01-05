@@ -44,7 +44,7 @@
                 <thead>
                 <tbody>
                 <th>  <a href="/admin?action=create&id=${p.id}" class="btn btn-success">create</a></th>
-                <c:forEach items="${managers}" var="m" varStatus="loop">
+                <c:forEach items="${admins}" var="m" varStatus="loop">
                     <tr>
                         <td>${loop.count}</td>
                         <td>${m.user_name}</td>
@@ -60,8 +60,8 @@
                         <td>${m.modify_date}</td>
                         <td>${m.name_role}</td>
 
-                        <td><a href="/admin?action=edit&id=${p.id}" class="btn btn-success">edit</a></td>
-                        <td><a href="/admin?action=delete&id=${p.id}" class="btn btn-danger">delete</a></td>
+                        <td><a href="/admin?action=edit&id=${m.id}" class="btn btn-success">edit</a></td>
+                        <td><a href="/admin?action=delete&id=${m.id}" class="btn btn-danger">delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

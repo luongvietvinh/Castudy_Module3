@@ -1,5 +1,6 @@
 package config.Dao;
 
+import model.Admin;
 import model.Customer;
 
 import java.sql.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class CustomerDao {
 ConnectionJDBC connectionJDBC = new ConnectionJDBC();
-
+    List<Customer> customerList = new ArrayList<>();
 
     public void createCustomerDao(Customer customer) {
         String saveCustomer = "INSERT INTO customer (full_name,passwords,email,phone,address,img,create_date,modify_date) VALUES (?,?,?,?,?,?)";
@@ -31,7 +32,7 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
 
     public List<Customer> showListCustomer() {
         String ShowCustomer = "select customer.*,role.name from customer join role on customer.id_role = role.id";
-        List<Customer> customerList = new ArrayList<>();
+
 
         try (Connection connection = connectionJDBC.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ShowCustomer)) {
@@ -60,7 +61,7 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
 
 
     public void deleteCustomeDao(int id) {
-        String deleteSQL = "DELETE  from custome where id=?";
+        String deleteSQL = "DELETE  from customer where id=?";
         try {
             PreparedStatement preparedStatement = connectionJDBC.getConnection().prepareStatement(deleteSQL);
             preparedStatement.setInt(1,id);
@@ -123,4 +124,34 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
 
         return null;
     }
+
+    public Customer loginCustomer (String email , String pass) {
+
+        String query = "select * from customer where email = ? and  passwords = ?;" ;
+        Connection connection = connectionJDBC.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,email);
+            ps.setString(2,pass);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String full_name = rs.getString("full_name");
+                String passwords = rs.getString("passwords");
+                String email1 = rs.getString("email");
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String img = rs.getString("img");
+                Date create_date = Date.valueOf(rs.getString("create_date"));
+                Date modify_date = Date.valueOf(rs.getString("modify_date"));
+                String name_role = rs.getString("name");
+               return new Customer(id, full_name, passwords, email1, phone, address, img, create_date, modify_date, name_role);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     }

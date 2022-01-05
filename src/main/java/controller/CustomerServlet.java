@@ -3,14 +3,12 @@ package controller;
 import config.Dao.CustomerDao;
 import config.Dao.Roledao;
 import model.Customer;
-import model.Role;
 import service.Customerservice;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.Date;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
 public class CustomerServlet extends HttpServlet {
     CustomerDao customerDao = new CustomerDao();
     Customerservice customerservice = new Customerservice();
-    Roledao roledao = new Roledao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

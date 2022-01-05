@@ -8,8 +8,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<role rolename="manager-gui"/>
-<user username="tomcat" password="s3cret" roles="manager-gui"/>
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,6 +17,46 @@
 </head>
 <body>
 <form method="post">
+
+    <div class="form-group">
+        <label>user_name</label>
+        <input type=text class="form-control" name="user_name" aria-describedby="emailHelp"
+              >
+    </div>
+    <div class="form-group">
+        <label>nhap passwords</label>
+        <input type="password" class="form-control" name="passwords" >
+    </div>
+        <div class="form-group">
+            <label>Full_Name</label>
+            <input type=text class="form-control" name="full_name" aria-describedby="emailHelp"
+                  >
+        </div>
+    <div class="form-group">
+        <label>nhap email</label>
+        <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+               >
+    </div>
+    <div class="form-group">
+        <label>nhap phone</label>
+        <input type="number" class="form-control" name="phone" aria-describedby="emailHelp" >
+    </div>
+    <div class="form-group">
+        <label>nhap address</label>
+        <input type="text" class="form-control" name="address" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label>nhap img</label>
+        <input type="text" class="form-control" name="img" aria-describedby="emailHelp" >
+    </div>
+    <div class="form-group">
+        <label>nhap salary</label>
+        <input type="text" class="form-control" name="salary" aria-describedby="emailHelp" >
+    </div>
+    <div class="form-group">
+        <label>nhap coefficients_salary</label>
+        <input type="text" class="form-control" name="coefficients_salary" aria-describedby="emailHelp" >
+    </div>
     <div class="form-group">
         <label>chon role</label>
         <select name="id_role">
@@ -28,48 +66,8 @@
                 </option>
             </c:forEach>
         </select>
-    <div class="form-group">
-        <label>user_name</label>
-        <input type=text class="form-control" name="user_name" aria-describedby="emailHelp"
-               placeholder="enter ngay sinh">
     </div>
-    <div class="form-group">
-        <label>nhap passwords</label>
-        <input type="password" class="form-control" name="passwords" placeholder="enter address">
-    </div>
-    <div class="form-group">
-        <label>nhap email</label>
-        <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
-               placeholder="enter phone">
-    </div>
-    <div class="form-group">
-        <label>nhap phone</label>
-        <input type="number" class="form-control" name="phone" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
-        <label>nhap address</label>
-        <input type="text" class="form-control" name="address" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
-        <label>nhap img</label>
-        <input type="text" class="form-control" name="img" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
-        <label>nhap salary</label>
-        <input type="text" class="form-control" name="salary" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
-        <label>nhap coefficients_salary</label>
-        <input type="text" class="form-control" name="coefficients_salary" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
-        <label>nhap status</label>
-        <input type="text" class="form-control" name="status" aria-describedby="emailHelp" placeholder="enter mail">
-    </div>
-    <div class="form-group">
 
-
-    </div>
     <%--    <div class="form-check">--%>
     <%--        <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
     <%--        <label class="form-check-label" for="exampleCheck1">Check me out</label>--%>
