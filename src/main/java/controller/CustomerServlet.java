@@ -1,8 +1,10 @@
 package controller;
 
 import config.Dao.CustomerDao;
+
 import config.Dao.Roledao;
 import model.Customer;
+import model.Role;
 import service.Customerservice;
 
 import javax.servlet.*;
@@ -16,6 +18,7 @@ import java.util.List;
 public class CustomerServlet extends HttpServlet {
     CustomerDao customerDao = new CustomerDao();
     Customerservice customerservice = new Customerservice();
+    Roledao roledao = new Roledao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,9 +29,13 @@ public class CustomerServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
+                List<Role> roleList = roledao.showRole();
+                request.setAttribute("roles" , roleList);
                 request.getRequestDispatcher("/view/customer/createCustomer.jsp").forward(request, response);
                 break;
             case "edit":
+                roleList = roledao.showRole();
+                request.setAttribute("roles" , roleList);
                 request.getRequestDispatcher("/view/customer/editCustomer.jsp").forward(request, response);
                 break;
             case "delete":
@@ -63,9 +70,9 @@ public class CustomerServlet extends HttpServlet {
     public void searchByName (HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("search");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("showCustomer.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/view/customer/showCustomer.jsp");
         List<Customer> customerList = customerDao.searchByName(name);;
-        request.setAttribute("customer", customerList);
+        request.setAttribute("customers", customerList);
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -84,9 +91,8 @@ public class CustomerServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String img = request.getParameter("img");
-//        Date create_date = Date.valueOf(request.getParameter("create_date"));
-//        Date modify_date = Date.valueOf(request.getParameter("modify_date"));
-        customerservice.add(new Customer( full_name, passwords, email,phone,address,img));
+        int id_role = Integer.parseInt(request.getParameter("id_role"));
+        customerservice.add(new Customer( full_name, passwords, email,phone,address,img,id_role));
         try {
             response.sendRedirect("/customer");
         } catch (IOException e) {
@@ -102,10 +108,7 @@ public class CustomerServlet extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-
         String img = request.getParameter("img");
-//        Date create_date = Date.valueOf(request.getParameter("create_date"));
-//        Date modify_date = Date.valueOf(request.getParameter("modify_date"));
         Customer customer = new Customer(id, id_role, full_name, passwords, email,phone,address,img);
         customerservice.edit(id,customer);
 
@@ -132,9 +135,7 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("customers", customerList);
         try {
             dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }

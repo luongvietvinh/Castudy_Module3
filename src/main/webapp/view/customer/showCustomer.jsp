@@ -49,12 +49,13 @@
                 <th>phone        </th>
                 <th>email      </th>
                 <th>address      </th>
+                <th>role      </th>
                 <th>img      </th>
                 <th>create_date      </th>
                 <th>modify_date      </th>
-
+                <th>  <a href="/customer?action=create&id=${c.id}" class="btn btn-success">create</a></th>
                 <c:forEach items="${customers}" var="c" varStatus="loop">
-                    <th>  <a href="/customer?action=create&id=${c.id}" class="btn btn-success">create</a></th>
+
                     <tr>
                         <td>${loop.count}</td>
                         <td>${c.full_name}</td>
@@ -63,6 +64,7 @@
                         <td>${c.phone}</td>
                         <td>${c.address}</td>
                         <td><img src="${c.img}"  width="150" height="100" alt=""></td>
+                        <td>${c.name_role}</td>
                         <td>${c.create_date}</td>
                         <td>${c.modify_date}</td>
                         <td><a href="/customer?action=edit&id=${c.id}" class="btn btn-success">edit</a></td>
@@ -73,7 +75,7 @@
                 </thead>
             </table>
             <h1> user name</h1>
-            <%= request.getParameter("name") %>>
+            <%= request.getParameter ("full_name") %>>
         </div>
     </div>
 </div>

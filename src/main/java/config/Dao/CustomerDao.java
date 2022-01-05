@@ -1,6 +1,5 @@
 package config.Dao;
 
-import model.Admin;
 import model.Customer;
 
 import java.sql.*;
@@ -8,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDao {
-ConnectionJDBC connectionJDBC = new ConnectionJDBC();
-    List<Customer> customerList = new ArrayList<>();
+    ConnectionJDBC connectionJDBC = new ConnectionJDBC();
+
 
     public void createCustomerDao(Customer customer) {
-        String saveCustomer = "INSERT INTO customer (full_name,passwords,email,phone,address,img,create_date,modify_date) VALUES (?,?,?,?,?,?)";
+        String saveCustomer = "INSERT INTO customer (full_name,passwords,email,phone,address,id_role,img) VALUES (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement preparedStatement = connectionJDBC.getConnection().prepareStatement(saveCustomer);
@@ -21,10 +20,10 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
             preparedStatement.setString(3, customer.getEmail());
             preparedStatement.setString(4, customer.getPhone());
             preparedStatement.setString(5, customer.getAddress());
-//            preparedStatement.setInt(6, customer.getId_role());
-            preparedStatement.setString(6, customer.getImg());
+            preparedStatement.setInt(6,customer.getId_role());
+            preparedStatement.setString(7, customer.getImg());
             preparedStatement.execute();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -34,24 +33,28 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
         String ShowCustomer = "select customer.*,role.name from customer join role on customer.id_role = role.id";
 
 
-        try (Connection connection = connectionJDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ShowCustomer)) {
+        try {
+            Connection connection = connectionJDBC.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ShowCustomer);
             ResultSet rs = preparedStatement.executeQuery();
+
+            List<Customer> customerList = new ArrayList<>();
             while (rs.next()) {
-                int id  = rs.getInt("id");
+                int id = rs.getInt("id");
                 String full_name = rs.getString("full_name");
                 String passwords = rs.getString("passwords");
                 String email = rs.getString("email");
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
-                String img = rs.getString("img");
-                Date create_date = (rs.getDate("create_date"));
-                Date modify_date =(rs.getDate("modify_date"));
                 String name_role = rs.getString("name");
-                customerList.add(new Customer(id, full_name, passwords,email,phone,address,img,create_date,modify_date,name_role));
+                String img = rs.getString("img");
+                Date create_date = rs.getDate("create_date");
+                Date modify_date = rs.getDate("modify_date");
+
+                customerList.add(new Customer(id, full_name, passwords, email, phone, address,name_role, img, create_date, modify_date));
 
             }
-          return customerList;
+            return customerList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,18 +67,16 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
         String deleteSQL = "DELETE  from customer where id=?";
         try {
             PreparedStatement preparedStatement = connectionJDBC.getConnection().prepareStatement(deleteSQL);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
-
-    public void updateCustomer(int id, Customer customer){
-        String editCustomer = "update student set full_name = ? ,passwords = ? ,email = ?,phone = ?,address = ? ,id_role = ?,img = ? where id = ?";
+    public void updateCustomer(int id, Customer customer) {
+        String editCustomer = "update customer set full_name = ? ,passwords = ? ,email = ?,phone = ?,address = ? ,id_role = ?,img = ? where id = ?";
 
         try (Connection connection = connectionJDBC.getConnection();
              PreparedStatement statement = connection.prepareStatement(editCustomer)) {
@@ -86,7 +87,7 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
             statement.setString(5, customer.getAddress());
             statement.setInt(6, customer.getId_role());
             statement.setString(7, customer.getImg());
-            statement.setInt(8,id);
+            statement.setInt(8, id);
 
             statement.execute();
         } catch (SQLException e) {
@@ -95,26 +96,27 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
     }
 
     public List<Customer> searchByName(String findname) {
-        String getall = "select customer.* from customer" +
-                "  where customer.full_name like '%" + findname +"%\'";
 
+        String getall = "select customer.*,role.name from customer join role on customer.id_role = role.id" +
+                "  where customer.full_name like '%" + findname + "%\'";
 
         try {
             Statement statement = connectionJDBC.getConnection().createStatement();
             ResultSet rs = statement.executeQuery(getall);
             List<Customer> customerList = new ArrayList<>();
             while (rs.next()) {
-                int id  = rs.getInt("id");
+                int id = rs.getInt("id");
                 String full_name = rs.getString("full_name");
                 String passwords = rs.getString("passwords");
                 String email = rs.getString("email");
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
-                String img = rs.getString("img");
-                Date create_date = Date.valueOf(rs.getString("create_date"));
-                Date modify_date = Date.valueOf(rs.getString("modify_date"));
                 String name_role = rs.getString("name");
-                customerList.add(new Customer(id, full_name, passwords,email,phone,address,img,create_date,modify_date,name_role));
+                String img = rs.getString("img");
+                Date create_date = rs.getDate("create_date");
+                Date modify_date = rs.getDate("modify_date");
+
+                customerList.add(new Customer(id, full_name, passwords, email, phone, address,name_role, img, create_date, modify_date));
 
             }
             return customerList;
@@ -125,33 +127,32 @@ ConnectionJDBC connectionJDBC = new ConnectionJDBC();
         return null;
     }
 
-    public Customer loginCustomer (String email , String pass) {
-
-        String query = "select * from customer where email = ? and  passwords = ?;" ;
-        Connection connection = connectionJDBC.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1,email);
-            ps.setString(2,pass);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String full_name = rs.getString("full_name");
-                String passwords = rs.getString("passwords");
-                String email1 = rs.getString("email");
-                String phone = rs.getString("phone");
-                String address = rs.getString("address");
-                String img = rs.getString("img");
-                Date create_date = Date.valueOf(rs.getString("create_date"));
-                Date modify_date = Date.valueOf(rs.getString("modify_date"));
-                String name_role = rs.getString("name");
-               return new Customer(id, full_name, passwords, email1, phone, address, img, create_date, modify_date, name_role);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+//    public Customer loginCustomer(String email, String pass) {
+//
+//        String query = "select * from customer where email = ? and  passwords = ?;";
+//        Connection connection = connectionJDBC.getConnection();
+//        try {
+//            PreparedStatement ps = connection.prepareStatement(query);
+//            ps.setString(1, email);
+//            ps.setString(2, pass);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String full_name = rs.getString("full_name");
+//                String passwords = rs.getString("passwords");
+//                String email1 = rs.getString("email");
+//                String phone = rs.getString("phone");
+//                String address = rs.getString("address");
+//                String img = rs.getString("img");
+//                Date create_date = Date.valueOf(rs.getString("create_date"));
+//                Date modify_date = Date.valueOf(rs.getString("modify_date"));
+//                String name_role = rs.getString("name");
+//                return new Customer(id, full_name, passwords, email1, phone, address, img, create_date, modify_date, name_role);
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
-    }

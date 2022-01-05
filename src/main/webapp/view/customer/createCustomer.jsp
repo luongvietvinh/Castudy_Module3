@@ -20,39 +20,43 @@
         <div class="form-group">
             <label>user_name</label>
             <input type=text class="form-control" name="full_name" aria-describedby="emailHelp"
-                   placeholder="enter ngay sinh">
+                   >
         </div>
         <div class="form-group">
             <label>nhap passwords</label>
-            <input type="password" class="form-control" name="passwords" placeholder="enter address">
+            <input type="password" class="form-control" name="passwords" >
         </div>
         <div class="form-group">
             <label>nhap email</label>
             <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
-                   placeholder="enter phone">
+                   >
         </div>
         <div class="form-group">
             <label>nhap phone</label>
-            <input type="number" class="form-control" name="phone" aria-describedby="emailHelp" placeholder="enter mail">
+            <input type="number" class="form-control" name="phone" aria-describedby="emailHelp" >
         </div>
         <div class="form-group">
             <label>nhap address</label>
-            <input type="text" class="form-control" name="address" aria-describedby="emailHelp" placeholder="enter mail">
+            <input type="text" class="form-control" name="address" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
             <label>nhap img</label>
-            <input type="text" class="form-control" name="img" aria-describedby="emailHelp" placeholder="enter mail">
+            <input type="text" class="form-control" name="img" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-
-
+            <label>chon role</label>
+            <select name="id_role">
+                <c:forEach items="${roles}" var="r">
+                    <option value="${r.id}">
+                        <p>${r.name}</p>
+                    </option>
+                </c:forEach>
+            </select>
         </div>
-        <%--    <div class="form-check">--%>
-        <%--        <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-        <%--        <label class="form-check-label" for="exampleCheck1">Check me out</label>--%>
-        <%--    </div>--%>
         <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
+
 </body>
 </html>
 

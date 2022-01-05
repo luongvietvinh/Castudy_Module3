@@ -11,13 +11,10 @@ public class Customerservice {
         customerDao.showListCustomer();
     }
 
-
-
     public void delete (int id) {
         customerDao.deleteCustomeDao(id);
         customerDao.showListCustomer();
     }
-
     public void edit(int id,Customer customer) {
         customerDao.updateCustomer(id,customer);
         customerDao.showListCustomer();

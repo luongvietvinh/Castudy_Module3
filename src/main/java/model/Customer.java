@@ -17,7 +17,7 @@ public class Customer {
     private String name_role;
 
     public Customer(int id, String full_name, String passwords, String email, String phone,
-                    String address, String img, Date create_date, Date modify_date, String name_role) {
+                    String address,String name_role , String img, Date create_date, Date modify_date) {
         this.id = id;
         this.full_name = full_name;
         this.passwords = passwords;
@@ -41,13 +41,16 @@ public class Customer {
         this.img = img;
     }
 
-    public Customer(String full_name, String passwords, String email, String phone, String address, String img) {
+
+
+    public Customer(String full_name, String passwords, String email, String phone, String address, String img, int id_role) {
         this.full_name = full_name;
         this.passwords = passwords;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.img = img;
+        this.id_role = id_role;
     }
 
 
